@@ -1,11 +1,12 @@
 package com.ufps.edu.model.entity;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,6 +16,7 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
 	private Long id;
 	
 	private Long empresa;
@@ -24,6 +26,8 @@ public class Usuario {
 	private String email;
 	
 	private String clave;
+	
+	private Long rol;
 	
 
 	public Long getId() {
@@ -65,6 +69,16 @@ public class Usuario {
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
+
+	public Long getRol() {
+		return rol;
+	}
+
+	public void setRol(Long rol) {
+		this.rol = rol;
+	}
+	
+	
 	
 	
 	

@@ -8,6 +8,6 @@ import com.ufps.edu.model.entity.Usuario;
 
 public interface IUsuarioDao extends JpaRepository<Usuario, Long>{
 
-	Optional<Usuario> findByUsuario(String usuario);
+	public Optional<Usuario> findByUsuario(String usuario);
 	
 }

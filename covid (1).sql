@@ -2,8 +2,8 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 18-06-2020 a las 16:17:18
+-- Servidor: localhost
+-- Tiempo de generación: 27-06-2020 a las 00:24:23
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.7
 
@@ -47,6 +47,15 @@ CREATE TABLE `accesovisitante` (
   `visitante` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `accesovisitante`
+--
+
+INSERT INTO `accesovisitante` (`id`, `fecha`, `temperatura`, `visitante`) VALUES
+(1, '2020-06-26', 35, 1),
+(2, '2020-06-26', 36, 1),
+(3, '2020-06-26', 34, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -72,6 +81,15 @@ CREATE TABLE `basico` (
   `fechareg` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `basico`
+--
+
+INSERT INTO `basico` (`id`, `documento`, `nombre`, `telefono`, `fechanacimiento`, `genero`, `eps`, `modalidad`, `tipo`, `embarazo`, `contactonombre`, `contactotelefono`, `mas60`, `menos15`, `salud`, `fechareg`) VALUES
+(1, '123123123', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-06-26 13:10:46'),
+(2, '55555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-06-26 06:01:00'),
+(6, '1150001', 'Juan Camilo Gomez Perez', '3502698741', '0015-07-23', 'M', 1, 1, 2, NULL, 'Miguel Zapateiro', 'Miguel Zapateiro', NULL, 1, 1, '2020-06-26 21:52:44');
+
 -- --------------------------------------------------------
 
 --
@@ -91,6 +109,13 @@ CREATE TABLE `cormobilidad` (
   `fumador` tinyint(1) DEFAULT NULL,
   `fechareg` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena la informaci?n de las enfermedades de las personas que ingresan a la Universdiad';
+
+--
+-- Volcado de datos para la tabla `cormobilidad`
+--
+
+INSERT INTO `cormobilidad` (`id`, `diabetes`, `cardio`, `cerebro`, `vih`, `cancer`, `corticoides`, `epoc`, `nutricion`, `fumador`, `fechareg`) VALUES
+(6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-06-26 22:22:12');
 
 -- --------------------------------------------------------
 
@@ -176,6 +201,15 @@ CREATE TABLE `registro` (
   `covid` tinyint(1) DEFAULT NULL COMMENT 'Almacena si la persona ha estado en contacto '
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena el registro de ingreso del personal';
 
+--
+-- Volcado de datos para la tabla `registro`
+--
+
+INSERT INTO `registro` (`id`, `persona`, `fecha`, `tos`, `malestar`, `fatiga`, `nasal`, `garganta`, `dificultad`, `temperatura`, `fechareg`, `covid`) VALUES
+(1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '36.0', '2020-06-26 13:11:28', NULL),
+(2, 6, NULL, NULL, NULL, 1, NULL, NULL, NULL, '34.0', '2020-06-26 21:53:07', NULL),
+(3, 6, NULL, NULL, NULL, NULL, NULL, NULL, 1, '34.0', '2020-06-26 22:22:20', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -183,7 +217,7 @@ CREATE TABLE `registro` (
 --
 
 CREATE TABLE `rol` (
-  `id` int(11) NOT NULL,
+  `id_rol` int(11) NOT NULL,
   `descripcion` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena informaci?n de los roles del docente';
 
@@ -191,7 +225,7 @@ CREATE TABLE `rol` (
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`id`, `descripcion`) VALUES
+INSERT INTO `rol` (`id_rol`, `descripcion`) VALUES
 (1, 'Administrador'),
 (2, 'Usuario');
 
@@ -230,7 +264,7 @@ CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `empresa` int(11) DEFAULT NULL,
   `usuario` varchar(20) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
+  `email` varchar(500) DEFAULT NULL,
   `clave` varchar(500) DEFAULT NULL,
   `rol` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacena la informaci?n de los usuarios del sistema';
@@ -240,7 +274,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `empresa`, `usuario`, `email`, `clave`, `rol`) VALUES
-(1, 1, 'admin', 'admin@gmail.com', '$2a$10$iN1xpFlRzzbV.aT/CDM5I.HzlFrpAnqFGZWk4SMHJZBSdkTpMkNme', 1);
+(1, 1, 'admin', 'admin@gmail.com', '$2a$10$iN1xpFlRzzbV.aT/CDM5I.HzlFrpAnqFGZWk4SMHJZBSdkTpMkNme', 1),
+(2, 1, 'user', 'user@gmail.com', '$2a$10$iN1xpFlRzzbV.aT/CDM5I.HzlFrpAnqFGZWk4SMHJZBSdkTpMkNme', 2);
 
 -- --------------------------------------------------------
 
@@ -255,8 +290,17 @@ CREATE TABLE `visitante` (
   `fechanacimiento` date DEFAULT NULL,
   `eps` int(11) DEFAULT NULL,
   `genero` varchar(1) DEFAULT NULL,
-  `empresa` int(11) DEFAULT NULL
+  `empresa` int(11) DEFAULT NULL,
+  `telefono` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Almacen la infromaci?n de los visitantes';
+
+--
+-- Volcado de datos para la tabla `visitante`
+--
+
+INSERT INTO `visitante` (`id`, `documento`, `nombre`, `fechanacimiento`, `eps`, `genero`, `empresa`, `telefono`) VALUES
+(1, '123456789', 'Pedro Marin', '2000-06-01', 2, 'F', 1, '3502698741'),
+(2, '987654321', 'homero Simsomp', '2004-02-28', 6, 'M', NULL, '3502698741');
 
 --
 -- Índices para tablas volcadas
@@ -266,8 +310,7 @@ CREATE TABLE `visitante` (
 -- Indices de la tabla `acceso`
 --
 ALTER TABLE `acceso`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_acceso_registro` (`registro`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `accesovisitante`
@@ -320,7 +363,7 @@ ALTER TABLE `registro`
 -- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_rol`);
 
 --
 -- Indices de la tabla `tipo`
@@ -358,13 +401,13 @@ ALTER TABLE `acceso`
 -- AUTO_INCREMENT de la tabla `accesovisitante`
 --
 ALTER TABLE `accesovisitante`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `basico`
 --
 ALTER TABLE `basico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `empresa`
@@ -385,10 +428,16 @@ ALTER TABLE `modalidad`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `registro`
+--
+ALTER TABLE `registro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo`
@@ -400,23 +449,17 @@ ALTER TABLE `tipo`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `visitante`
 --
 ALTER TABLE `visitante`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `acceso`
---
-ALTER TABLE `acceso`
-  ADD CONSTRAINT `FK_acceso_registro` FOREIGN KEY (`registro`) REFERENCES `registro` (`id`);
 
 --
 -- Filtros para la tabla `accesovisitante`
@@ -455,7 +498,7 @@ ALTER TABLE `tipo`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `FK_usuario_empresa` FOREIGN KEY (`empresa`) REFERENCES `empresa` (`id`),
-  ADD CONSTRAINT `FK_usuario_rol` FOREIGN KEY (`rol`) REFERENCES `rol` (`id`);
+  ADD CONSTRAINT `FK_usuario_rol` FOREIGN KEY (`rol`) REFERENCES `rol` (`id_rol`);
 
 --
 -- Filtros para la tabla `visitante`
